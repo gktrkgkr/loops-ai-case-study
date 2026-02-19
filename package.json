@@ -1,0 +1,35 @@
+{
+  "name": "loops-ai-case-study",
+  "version": "1.0.0",
+  "description": "Event-driven AI agent backend – Loops AI Senior Backend Engineer Case Study",
+  "main": "dist/index.js",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "gcp-build": "",
+    "start": "npx functions-framework --target=api --source=dist/",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "deploy:api": "gcloud functions deploy api --gen2 --runtime=nodejs20 --trigger-http --allow-unauthenticated --entry-point=api --source=. --region=europe-west1",
+    "deploy:reasoner": "gcloud functions deploy reasoner --gen2 --runtime=nodejs20 --trigger-topic=reasoning-requested --entry-point=reasoner --source=. --region=europe-west1",
+    "deploy:executor": "gcloud functions deploy executor --gen2 --runtime=nodejs20 --trigger-topic=action-requested --entry-point=executor --source=. --region=europe-west1",
+    "deploy:all": "npm run build && npm run deploy:api && npm run deploy:reasoner && npm run deploy:executor"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^7.11.0",
+    "@google-cloud/functions-framework": "^3.4.0",
+    "@google-cloud/pubsub": "^4.9.0",
+    "express": "^4.21.0",
+    "uuid": "^11.0.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.0.0",
+    "@types/uuid": "^10.0.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

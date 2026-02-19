@@ -1,0 +1,8 @@
+node_modules/
+src/
+.git/
+.venv/
+*.pdf
+*.md
+tsconfig.json
+.gitignore
